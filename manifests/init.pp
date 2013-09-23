@@ -12,7 +12,7 @@ class emacs (
     }
     centos, redhat: {
       $elPath = "/usr/share/emacs/site-lisp/site-start.d"
-      $elDep  = Package['emacs-common'],
+      $elDep  = Package['emacs-common']
       
       package { ['emacs-nox', 'emacs-common']:
         ensure => installed,
