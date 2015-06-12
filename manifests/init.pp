@@ -20,10 +20,22 @@ class emacs (
       $elPath = "/etc/emacs/site-start.d"
       $elDep  = Package['emacsen-common']
       
-      package { ['emacs23-nox', 'emacsen-common']:
-        ensure => installed,
+      case $lsbdistcodename {
+        squeeze, wheezy: {
+          package { ['emacs23-nox', 'emacsen-common']:
+            ensure => installed,
+          }
+        }
+
+        default: {
+          # Jessie adds the emacs-nox metapackage.
+          package { ['emacs-nox', 'emacsen-common']:
+            ensure => installed,
+          }
+        }
       }
     }
+      
     centos, redhat: {
       $elPath = "/usr/share/emacs/site-lisp/site-start.d"
       $elDep  = Package['emacs-common']
